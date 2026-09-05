@@ -27,4 +27,15 @@ void main() {
 
     expect(find.text('Por persona: \$41.00'), findsOneWidget);
   });
+
+  testWidgets('opens the network image route', (WidgetTester tester) async {
+    await tester.pumpWidget(const MyApp());
+
+    await tester.tap(find.byTooltip('Ver imagen de red'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Imagen desde internet'), findsOneWidget);
+    expect(find.byType(NetworkImageView), findsOneWidget);
+    expect(find.byType(Image), findsOneWidget);
+  });
 }

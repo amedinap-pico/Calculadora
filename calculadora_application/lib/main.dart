@@ -44,116 +44,152 @@ class _MyAppState extends State<MyApp> {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.amber),
         useMaterial3: true,
       ),
-      home: Scaffold(
-        backgroundColor: const Color(0xFFFFF7ED),
-        appBar: AppBar(
-          title: const Text('Calculadora de propina'),
-          centerTitle: true,
-          backgroundColor: Colors.orange.shade700,
-        ),
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const Text(
-                'Cuenta total',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-              ),
-              const SizedBox(height: 8),
-              TextField(
-                key: const ValueKey('billInput'),
-                controller: billController,
-                keyboardType: const TextInputType.numberWithOptions(
-                  decimal: true,
-                ),
-                decoration: const InputDecoration(
-                  prefixText: '\$ ',
-                  hintText: '120.00',
-                ),
-              ),
-              const SizedBox(height: 18),
-              const Text(
-                'Porcentaje de propina',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-              ),
-              Slider(
-                value: tipPercent,
-                min: 0,
-                max: 50,
-                divisions: 50,
-                label: '${tipPercent.round()}%',
-                onChanged: (value) {
-                  setState(() {
-                    tipPercent = value;
-                  });
+      routes: {'/network-image': (context) => const NetworkImageView()},
+      home: Builder(
+        builder: (context) => Scaffold(
+          backgroundColor: const Color(0xFFFFF7ED),
+          appBar: AppBar(
+            title: const Text('Calculadora de propina'),
+            centerTitle: true,
+            backgroundColor: Colors.orange.shade700,
+            actions: [
+              IconButton(
+                tooltip: 'Ver imagen de red',
+                icon: const Icon(Icons.image_outlined),
+                onPressed: () {
+                  Navigator.pushNamed(context, '/network-image');
                 },
-              ),
-              Text(
-                '${tipPercent.round()}%',
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
-              const SizedBox(height: 18),
-              const Text(
-                'Personas',
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
-              ),
-              const SizedBox(height: 8),
-              TextField(
-                key: const ValueKey('peopleInput'),
-                controller: peopleController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(hintText: '4'),
-              ),
-              const SizedBox(height: 8),
-              SwitchListTile(
-                key: const ValueKey('roundSwitch'),
-                contentPadding: EdgeInsets.zero,
-                title: const Text('Redondear por persona'),
-                value: roundUp,
-                onChanged: (value) {
-                  setState(() {
-                    roundUp = value;
-                  });
-                },
-              ),
-              const SizedBox(height: 24),
-              Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(18),
-                  child: Column(
-                    children: [
-                      Text(
-                        'Propina: \$${tipAmount.toStringAsFixed(2)}',
-                        style: const TextStyle(fontSize: 18),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Total: \$${total.toStringAsFixed(2)}',
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w800,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Por persona: \$${perPerson.toStringAsFixed(2)}',
-                        style: TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.orange.shade800,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
               ),
             ],
           ),
+          body: SingleChildScrollView(
+            padding: const EdgeInsets.all(20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                const Text(
+                  'Cuenta total',
+                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                ),
+                const SizedBox(height: 8),
+                TextField(
+                  key: const ValueKey('billInput'),
+                  controller: billController,
+                  keyboardType: const TextInputType.numberWithOptions(
+                    decimal: true,
+                  ),
+                  decoration: const InputDecoration(
+                    prefixText: '\$ ',
+                    hintText: '120.00',
+                  ),
+                ),
+                const SizedBox(height: 18),
+                const Text(
+                  'Porcentaje de propina',
+                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                ),
+                Slider(
+                  value: tipPercent,
+                  min: 0,
+                  max: 50,
+                  divisions: 50,
+                  label: '${tipPercent.round()}%',
+                  onChanged: (value) {
+                    setState(() {
+                      tipPercent = value;
+                    });
+                  },
+                ),
+                Text(
+                  '${tipPercent.round()}%',
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                const SizedBox(height: 18),
+                const Text(
+                  'Personas',
+                  style: TextStyle(fontWeight: FontWeight.w700, fontSize: 16),
+                ),
+                const SizedBox(height: 8),
+                TextField(
+                  key: const ValueKey('peopleInput'),
+                  controller: peopleController,
+                  keyboardType: TextInputType.number,
+                  decoration: const InputDecoration(hintText: '4'),
+                ),
+                const SizedBox(height: 8),
+                SwitchListTile(
+                  key: const ValueKey('roundSwitch'),
+                  contentPadding: EdgeInsets.zero,
+                  title: const Text('Redondear por persona'),
+                  value: roundUp,
+                  onChanged: (value) {
+                    setState(() {
+                      roundUp = value;
+                    });
+                  },
+                ),
+                const SizedBox(height: 24),
+                Card(
+                  child: Padding(
+                    padding: const EdgeInsets.all(18),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Propina: \$${tipAmount.toStringAsFixed(2)}',
+                          style: const TextStyle(fontSize: 18),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Total: \$${total.toStringAsFixed(2)}',
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          'Por persona: \$${perPerson.toStringAsFixed(2)}',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.orange.shade800,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class NetworkImageView extends StatelessWidget {
+  const NetworkImageView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Imagen desde internet')),
+      body: Center(
+        child: Image.network(
+          'https://images.unsplash.com/photo-1551024506-0bccd828d307?w=900',
+          fit: BoxFit.cover,
+          loadingBuilder: (context, child, loadingProgress) {
+            if (loadingProgress == null) return child;
+            return const CircularProgressIndicator();
+          },
+          errorBuilder: (context, error, stackTrace) {
+            return const Text('No se pudo cargar la imagen.');
+          },
         ),
       ),
     );
